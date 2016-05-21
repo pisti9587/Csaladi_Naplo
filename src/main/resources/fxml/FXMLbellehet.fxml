@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.beadando1.FXMLbellehetController">
+   <children>
+      <Label alignment="BOTTOM_CENTER" layoutX="242.0" layoutY="21.0" prefHeight="27.0" prefWidth="117.0" text="Szép napot ">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelbellefelhaszn" alignment="BOTTOM_CENTER" layoutX="212.0" layoutY="48.0" prefHeight="27.0" prefWidth="184.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="238.0" layoutY="79.0" text="Új bejegyzés létrehozása" />
+      <Label layoutX="27.0" layoutY="100.0" text="Cím:" />
+      <Label layoutX="25.0" layoutY="132.0" text="Szöveg:" />
+      <TextField fx:id="tfbellecim" layoutX="78.0" layoutY="96.0" />
+      <TextArea fx:id="tabelleszoveg" layoutX="78.0" layoutY="132.0" prefHeight="175.0" prefWidth="445.0" />
+      <Button fx:id="buttonbellementes" layoutX="275.0" layoutY="317.0" mnemonicParsing="false" onAction="#mentes" text="Mentés" />
+      <Button fx:id="buttonbellekilepes" layoutX="78.0" layoutY="354.0" mnemonicParsing="false" onAction="#kilepes" text="Kijelentkezés" />
+      <Button fx:id="buttonbellekorabbi" layoutX="398.0" layoutY="354.0" mnemonicParsing="false" onAction="#korabbi" text="Korábbi bejegyzések" />
+      <Label fx:id="uzenet" layoutX="355.0" layoutY="321.0" prefHeight="17.0" prefWidth="220.0" />
+   </children>
+</AnchorPane>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.beadando1.FXMLController">
+    <children>
+        <Button fx:id="buttonbelepes" layoutX="132.0" layoutY="150.0" onAction="#handleButtonAction" text="Belépés" />
+        <Label fx:id="label" alignment="BOTTOM_CENTER" layoutX="5.0" layoutY="120" minHeight="16" minWidth="69" prefHeight="17.0" prefWidth="308.0" />
+      <Button fx:id="buttonregisztracio" layoutX="221.0" layoutY="150.0" mnemonicParsing="false" onAction="#handleButtonAction2" text="Regisztáció" />
+      <Label layoutX="50.0" layoutY="59.0" prefHeight="17.0" prefWidth="65.0" text="Felhasználó:" />
+      <Label layoutX="50.0" layoutY="92.0" prefHeight="17.0" prefWidth="65.0" text="Jelszó:" />
+      <TextField fx:id="tffelhasznalo" layoutX="135.0" layoutY="55.0" />
+      <Label layoutX="122.0" layoutY="14.0" prefHeight="17.0" prefWidth="76.0" text="Családi napló" />
+      <PasswordField fx:id="tfjelszo" layoutX="135.0" layoutY="88.0" />
+      <Button layoutX="24.0" layoutY="150.0" mnemonicParsing="false" onAction="#kilepes" prefHeight="25.0" prefWidth="76.0" text="Kilépés" />
+    </children>
+</AnchorPane>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.beadando1.FXMLregController">
+   <children>
+      <Label layoutX="181.0" layoutY="95.0" text="Felhasználó:" />
+      <Label layoutX="186.0" layoutY="137.0" prefHeight="17.0" prefWidth="55.0" text="Jelszó:" />
+      <TextField fx:id="tfregfelhasznalo" layoutX="325.0" layoutY="91.0" />
+      <PasswordField fx:id="tfregjelszo" layoutX="325.0" layoutY="133.0" />
+      <CheckBox fx:id="cbregelfogad" layoutX="107.0" layoutY="178.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="373.0" text="Regisztáció esetén a regisztrált személy vállalja, hogy a család többi tagjának bejezését nem olvassa, azokat nem teszi közzé." wrapText="true" />
+      <Button fx:id="buttonregregisztracio" layoutX="253.0" layoutY="271.0" mnemonicParsing="false" onAction="#regisztracio" text="Regisztráció" />
+      <Button fx:id="buttonregmegse" layoutX="267.0" layoutY="311.0" mnemonicParsing="false" onAction="#megse" text="Mégse" />
+     
+      <Label layoutX="165.0" layoutY="33.0" text="Családi napló regisztráció">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      
+      <Label fx:id="uzenet" alignment="BOTTOM_CENTER" layoutX="67.0" layoutY="170.0" prefHeight="17.0" prefWidth="454.0" />
+   </children>
+</AnchorPane>
