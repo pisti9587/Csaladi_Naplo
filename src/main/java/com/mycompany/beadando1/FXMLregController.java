@@ -5,7 +5,6 @@
  */
 package com.mycompany.beadando1;
 
-
 import java.io.IOException;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
@@ -16,6 +15,7 @@ import java.util.ResourceBundle;
 import com.mycompany.db.Adatbazis;
 import com.mycompany.db.EgysegesEntitasKezelo;
 import com.mycompany.db.EgysegesLekerdezes;
+import com.mycompany.db.FelhasznalDAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -38,41 +38,34 @@ import javafx.stage.Stage;
  */
 public class FXMLregController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-	private List<Adatbazis> FelhasznaloLista = new ArrayList<>();
-	private EgysegesLekerdezes felhasznalok = new EgysegesLekerdezes();
+    private List<Adatbazis> FelhasznaloLista = FelhasznalDAO.lekerfelhasznalo();
 
-
-     @FXML
+    @FXML
     private TextField tfregfelhasznalo;
-    
-     @FXML
+
+    @FXML
     private PasswordField tfregjelszo;
-     
-     @FXML
+
+    @FXML
     private CheckBox cbregelfogad;
-     
-     @FXML
+
+    @FXML
     private Button buttonregregisztracio;
 
     @FXML
     private Button buttonregmegse;
-  
+
     @FXML
     private Label uzenet;
-    
-    
-  @FXML
-     private void megse(ActionEvent event) throws IOException {
-       
-     Stage stage;
+
+    @FXML
+    private void megse(ActionEvent event) throws IOException {
+
+        Stage stage;
         Parent root;
 
         stage = (Stage) buttonregmegse.getScene().getWindow();
 
-      
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
         root = (Parent) loader.load();
         loader.<FXMLController>getController();
@@ -80,76 +73,55 @@ public class FXMLregController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Családi Napló");
-  
-        stage.show(); 
+
+        stage.show();
     }
-    
-    
+
     @FXML
-     private void regisztracio(ActionEvent event) throws NoSuchAlgorithmException, IOException {
-       
-     Adatbazis addnew = new Adatbazis();
-		FelhasznaloLista = felhasznalok.taroltFelhasznalok();
-		for (Adatbazis l : FelhasznaloLista) {
-			if (tfregfelhasznalo.getText().equals(l.getFelhasznalonev())) {
-				uzenet.setText("Már van ilyen regisztrált felhasználó.");
-				tfregfelhasznalo.clear();
-				tfregjelszo.clear();
-				return;
-			}
-		}
-		if (tfregfelhasznalo.getText().isEmpty() == true || tfregjelszo.getText().isEmpty() == true) {
-			uzenet.setText("Kérem írjon be felhasználónevet és jelszót!");
-			return;
-		} else 
-			if (cbregelfogad.isSelected())
-		
-			{
-			
-			addnew.setFelhasznalonev(tfregfelhasznalo.getText());
-			addnew.setJelszo(tfregjelszo.getText());
-			EgysegesEntitasKezelo es = new EgysegesEntitasKezelo();
-			es.em.persist(addnew);
-			es.em.getTransaction().commit();
-			es.em.close();
-			((Node) (event.getSource())).getScene().getWindow().hide();
+    private void regisztracio(ActionEvent event) throws NoSuchAlgorithmException, IOException {
 
+        for (Adatbazis l : FelhasznaloLista) {
+            if (tfregfelhasznalo.getText().equals(l.getFelhasznalonev())) {
+                uzenet.setText("Már van ilyen regisztrált felhasználó.");
+                tfregfelhasznalo.clear();
+                tfregjelszo.clear();
+                return;
+            }
+        }
+        if (tfregfelhasznalo.getText().isEmpty() == true || tfregjelszo.getText().isEmpty() == true) {
+            uzenet.setText("Kérem írjon be felhasználónevet és jelszót!");
+            return;
+        } else {
+            if (cbregelfogad.isSelected()) {
 
-			 Stage stage;
-		        Parent root;
+                FelhasznalDAO.felhasznaloHozzaad(tfregfelhasznalo.getText(), tfregjelszo.getText());
+                ((Node) (event.getSource())).getScene().getWindow().hide();
 
-		        stage = (Stage) buttonregregisztracio.getScene().getWindow();
+                Stage stage;
+                Parent root;
 
-		     
-		        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
-		        root = (Parent) loader.load();
-		        loader.<FXMLController>getController();
+                stage = (Stage) buttonregregisztracio.getScene().getWindow();
 
-		        Scene scene = new Scene(root);
-		        stage.setScene(scene);
-		   
-		        stage.show(); 
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
+                root = (Parent) loader.load();
+                loader.<FXMLController>getController();
 
-		}else  {
-			uzenet.setText("Kérem fogadja el a feltételeket");
-			return;
-			
-			
-		}
+                Scene scene = new Scene(root);
+                stage.setScene(scene);
+
+                stage.show();
+
+            } else {
+                uzenet.setText("Kérem fogadja el a feltételeket");
+                return;
+
+            }
+        }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	FelhasznaloLista = felhasznalok.taroltFelhasznalok();
 
-    }    
-    
+    }
+
 }

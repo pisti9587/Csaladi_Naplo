@@ -10,19 +10,25 @@ import javax.persistence.Persistence;
  */
 public class EgysegesEntitasKezelo {
 
-	public EntityManager em;
-	EntityManagerFactory emf;
 
-	/**
-	 * 
-	 */
-	public EgysegesEntitasKezelo() {
-		emf = Persistence.createEntityManagerFactory("egyseges");
-		em = emf.createEntityManager();
 
-		em.getTransaction().begin();
-		
-		
-	}
+    public static EntityManagerFactory emf = Persistence.createEntityManagerFactory("egyseges");
+    public static EntityManager em = emf.createEntityManager();
+    
+    public static EntityManager getEntityManeger()
+    {
+        return em;
+    }
+    
+    public static void close(){
+    
+        em.close();
+        emf.close();
+    }
 
+
+
+   
+
+	
 }

@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,17 +25,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 
 @Entity
-@Table(name = "TestNaplok")
-@XmlRootElement
-@NamedQueries({ @NamedQuery(name = "Naplok.findAll", query = "SELECT u FROM Naplok u"), })     
-public class Naplok implements Serializable {
+@Table(name = "TestNaplok2")
     
-    private static final long serialVersionUID = 1L;
-
+public class Naplok{
+    
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+        @SequenceGenerator(name ="IDgenerator", sequenceName="felhasznalo_id_s2", allocationSize = 1)
+        @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "IDgenerator")
 	private Integer id;
+
 	@Column(name = "felhasznalonev")
 	private String felhasznalonev;
 	@Column(name = "cim")
@@ -42,8 +42,18 @@ public class Naplok implements Serializable {
 	@Column(name = "jegyzet")
 	private String jegyzet;
 
-	public Naplok() {
-		
+    public Naplok() {
+    }
+
+	public Naplok(Integer id, String felhasznalonev,String cim, String jegyzet) {
+		this.id = id;
+        this.felhasznalonev = felhasznalonev;
+        this.jegyzet=jegyzet;
+        this.cim=cim;
+	}
+	
+	public void mod(String jegyzet){
+		this.setJegyzet(jegyzet);
 	}
 	
     public Integer getId() {

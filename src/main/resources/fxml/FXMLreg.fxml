@@ -14,7 +14,7 @@
       <Label layoutX="186.0" layoutY="137.0" prefHeight="17.0" prefWidth="55.0" text="Jelszó:" />
       <TextField fx:id="tfregfelhasznalo" layoutX="325.0" layoutY="91.0" />
       <PasswordField fx:id="tfregjelszo" layoutX="325.0" layoutY="133.0" />
-      <CheckBox fx:id="cbregelfogad" layoutX="107.0" layoutY="178.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="373.0" text="Regisztáció esetén a regisztrált személy vállalja, hogy a család többi tagjának bejezését nem olvassa, azokat nem teszi közzé." wrapText="true" />
+      <CheckBox fx:id="cbregelfogad" layoutX="107.0" layoutY="178.0" mnemonicParsing="false" prefHeight="82.0" prefWidth="373.0" text="Regisztáció esetén a regisztrált személy vállalja, hogy a család többi tagjának bejegyzését nem olvassa, azokat nem teszi közzé." wrapText="true" />
       <Button fx:id="buttonregregisztracio" layoutX="253.0" layoutY="271.0" mnemonicParsing="false" onAction="#regisztracio" text="Regisztráció" />
       <Button fx:id="buttonregmegse" layoutX="267.0" layoutY="311.0" mnemonicParsing="false" onAction="#megse" text="Mégse" />
      

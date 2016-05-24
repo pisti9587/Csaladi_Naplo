@@ -6,20 +6,19 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-
 public class MainApp extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
 
-  	  FXMLLoader loader = new FXMLLoader();
+        FXMLLoader loader = new FXMLLoader();
 
-    		Pane parent = loader.load(getClass().getResource("/fxml/Scene.fxml").openStream());
-		Scene scene = new Scene(parent);
-		stage.setScene(scene);
-		stage.setResizable(false);
-		stage.setTitle("Családi Napló");
-		stage.show();
+        Pane parent = loader.load(getClass().getResource("/fxml/Scene.fxml").openStream());
+        Scene scene = new Scene(parent);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.setTitle("Családi Napló");
+        stage.show();
     }
 
     /**

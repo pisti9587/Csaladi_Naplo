@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -23,24 +24,33 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 
 @Entity
-@Table(name = "aa")
-@XmlRootElement
-@NamedQueries({ @NamedQuery(name = "Adatbazis.findAll", query = "SELECT u FROM Adatbazis u"), })     
-public class Adatbazis implements Serializable {
+@Table(name = "prt")
+public class Adatbazis {
     
-    private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
+        @SequenceGenerator(name ="IDgenerator", sequenceName="felhasznalo_id_s", allocationSize = 1)
+        @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "IDgenerator")
 	private Integer id;
-	@Column(name = "felhasznalonev")
+
+        
+       
+	@Column(name = "felhasznalo")
 	private String felhasznalonev;
+        
 	@Column(name = "jelszo")
 	private String jelszo;
 
-	public Adatbazis() {
-		
+    public Adatbazis() {
+    }
+
+
+	public Adatbazis(Integer id, String felhasznalonev, String jelszo) {
+		this.id = id;
+        this.felhasznalonev = felhasznalonev;
+        this.jelszo = jelszo;
+
 	}
 	
     public Integer getId() {

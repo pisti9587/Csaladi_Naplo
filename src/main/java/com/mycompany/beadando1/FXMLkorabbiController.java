@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.mycompany.db.Adatbazis;
 import com.mycompany.db.EgysegesLekerdezes;
+import com.mycompany.db.FelhasznalDAO;
 import com.mycompany.db.Naplok;
 
 import javafx.event.ActionEvent;
@@ -32,101 +34,64 @@ import javafx.stage.Stage;
  */
 public class FXMLkorabbiController implements Initializable {
 
-	 private List<Naplok> NaploLista = new ArrayList<>();
-	 private EgysegesLekerdezes jegyzetek = new EgysegesLekerdezes();
-	 String felhasznalo;
-	 String cime;
-	 
-     @FXML
-    private Button  buttonkorabbivissza;
+    private List<Naplok> NaploLista = FelhasznalDAO.lekerjegyzet();
+    String felhasznalo;
+    String cime;
+
+    @FXML
+    private Button buttonkorabbivissza;
 
     @FXML
     private Button buttonkorabbibetoltes;
 
-   
     @FXML
     private Label labelkorabbi;
-    
+
     @FXML
     private ChoiceBox<String> choiceBox = new ChoiceBox<>();
-    
+
     @FXML
-    private Button buttonszerkeszt;
-    
-    
-    
-    
-     @FXML
-     private void vissza(ActionEvent event) throws IOException {
-       
-     Stage stage;
+    private void vissza(ActionEvent event) throws IOException {
+
+        Stage stage;
         Parent root;
 
         stage = (Stage) buttonkorabbivissza.getScene().getWindow();
 
-       
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FXMLbellehet.fxml"));
         root = (Parent) loader.load();
         loader.<FXMLbellehetController>getController();
 
-         FXMLbellehetController nev = (FXMLbellehetController) loader.getController();
-         nev.nev(felhasznalo);
-        
+        FXMLbellehetController nev = (FXMLbellehetController) loader.getController();
+        nev.nev(felhasznalo);
+
         Scene scene = new Scene(root);
         stage.setScene(scene);
-    
-        stage.show(); 
+
+        stage.show();
     }
-    
-     
-     @FXML
-     private void betoltes(ActionEvent event) throws IOException {
-    	 for(	Naplok l : NaploLista)
-    		 if (l.getCim().equals(choiceBox.getValue())){
-         labelkorabbi.setText(l.getJegyzet());
-         cime=choiceBox.getValue();}
-     }
-    
-    
-  
-       public void menu(ArrayList<String> lista, String felhasznal){
-        for(int i=0;i<lista.size();++i){
-    choiceBox.getItems().add(lista.get(i));
-   
-        }
-      felhasznalo=felhasznal;
-    }
-    
-    
+
     @FXML
-    private void szerkesztes(ActionEvent event) throws IOException {
-    	
-    	 Stage stage;
-         Parent root;
+    private void betoltes(ActionEvent event) throws IOException {
+        for (Naplok l : NaploLista) {
+            if (l.getCim().equals(choiceBox.getValue())) {
+                labelkorabbi.setText(l.getJegyzet());
+                cime = choiceBox.getValue();
+            }
+        }
+    }
 
-         stage = (Stage) buttonszerkeszt.getScene().getWindow();
+    public void menu(ArrayList<String> lista, String felhasznal) {
+        for (int i = 0; i < lista.size(); ++i) {
+            choiceBox.getItems().add(lista.get(i));
 
-         
-         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FXMLszerkesztes.fxml"));
-         root = (Parent) loader.load();
-         loader.<FXMLController>getController();
+        }
+        felhasznalo = felhasznal;
+    }
 
-         FXMLszerkesztesController nev = (FXMLszerkesztesController) loader.getController();
-         nev.nev(felhasznalo, labelkorabbi.getText(),cime);
-         
-         Scene scene = new Scene(root);
-         stage.setScene(scene);
-     
-         stage.show(); 
-     }
-    	
-    
-    
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	NaploLista = jegyzetek.eddigiJegyzetek();
-    }    
-    
+
+    }
+
 }

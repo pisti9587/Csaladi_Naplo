@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 import com.mycompany.db.EgysegesEntitasKezelo;
 import com.mycompany.db.EgysegesLekerdezes;
+import com.mycompany.db.FelhasznalDAO;
 import com.mycompany.db.Naplok;
 
 import javafx.event.ActionEvent;
@@ -33,14 +33,11 @@ import javafx.stage.Stage;
  *
  * @author Gégény István
  */
-
 public class FXMLbellehetController implements Initializable {
 
-	 private List<Naplok> NaploLista = new ArrayList<>();
-	 private EgysegesLekerdezes jegyzetek = new EgysegesLekerdezes();
-	 ArrayList <String> elemek = new ArrayList<>();
-	 
-	
+    private List<Naplok> NaploLista = FelhasznalDAO.lekerjegyzet();
+    ArrayList<String> elemek = new ArrayList<>();
+
     @FXML
     private Button buttonbellementes;
 
@@ -55,112 +52,87 @@ public class FXMLbellehetController implements Initializable {
 
     @FXML
     private TextArea tabelleszoveg;
-    
+
     @FXML
     private Label labelbellefelhaszn;
-    
+
     @FXML
     private Label uzenet;
 
-  
-     @FXML
-     private void kilepes(ActionEvent event) throws IOException {
-       
-     Stage stage;
+    @FXML
+    private void kilepes(ActionEvent event) throws IOException {
+
+        Stage stage;
         Parent root;
 
         stage = (Stage) buttonbellekilepes.getScene().getWindow();
 
-        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Scene.fxml"));
         root = (Parent) loader.load();
         loader.<FXMLController>getController();
 
         Scene scene = new Scene(root);
         stage.setScene(scene);
-    
-        stage.show(); 
+
+        stage.show();
     }
-    
-     @FXML
-     private void korabbi(ActionEvent event) throws IOException {
-       
-     Stage stage;
+
+    @FXML
+    private void korabbi(ActionEvent event) throws IOException {
+
+        Stage stage;
         Parent root;
 
         stage = (Stage) buttonbellekorabbi.getScene().getWindow();
 
-        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/FXMLkorabbi.fxml"));
         root = (Parent) loader.load();
         loader.<FXMLkorabbiController>getController();
-        
-        
-        
-       
-        
-        
-        
-        for (Naplok l : NaploLista)
-  			if (l.getFelhasznalonev().equals(labelbellefelhaszn.getText())) {
-  						elemek.add(l.getCim());
-        
-  			}
-        
-        
-      
-        
-        
-        
+
+        for (Naplok l : NaploLista) {
+            if (l.getFelhasznalonev().equals(labelbellefelhaszn.getText())) {
+                elemek.add(l.getCim());
+
+            }
+        }
+
         FXMLkorabbiController kor = (FXMLkorabbiController) loader.getController();
-        
-         kor.menu(elemek,labelbellefelhaszn.getText());
+
+        kor.menu(elemek, labelbellefelhaszn.getText());
         Scene scene = new Scene(root);
-        
+
         stage.setScene(scene);
-   
-        stage.show(); 
+
+        stage.show();
     }
-    
-     
-     @FXML
-     private void mentes(ActionEvent event) throws IOException {
-     
-    	
- 		if (tfbellecim.getText().isEmpty() == true || tabelleszoveg.getText().isEmpty() == true) {
- 			uzenet.setText("Kérem töltse ki a mezőket");
- 			return;
- 		} else {
- 			Naplok addnew = new Naplok();
- 			addnew.setFelhasznalonev(labelbellefelhaszn.getText());
- 			addnew.setCim(tfbellecim.getText());
- 			addnew.setJegyzet(tabelleszoveg.getText());
- 			EgysegesEntitasKezelo es = new EgysegesEntitasKezelo();
- 			es.em.persist(addnew);
- 			es.em.getTransaction().commit();
- 			es.em.close();
- 			
- 			elemek.add(tfbellecim.getText());
 
+    @FXML
+    private void mentes(ActionEvent event) throws IOException {
 
- 		} 
-     
- 		tfbellecim.setText(null);
- 		tabelleszoveg.setText(null);
- 		
-     
-     }
-     
-     
-     public void nev(String nev){
-         labelbellefelhaszn.setText(nev);
-     }
-     
-     
-    
+        if (tfbellecim.getText().isEmpty() == true || tabelleszoveg.getText().isEmpty() == true) {
+            uzenet.setText("Kérem töltse ki a mezőket");
+            return;
+        } else {
+            uzenet.setText("");
+
+            FelhasznalDAO.jegyzetHozzaad(labelbellefelhaszn.getText(), tfbellecim.getText(), tabelleszoveg.getText());
+
+            elemek.add(tfbellecim.getText());
+
+        }
+
+        tfbellecim.setText(null);
+        tabelleszoveg.setText(null);
+
+    }
+
+    public void nev(String nev) {
+        labelbellefelhaszn.setText(nev);
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    	NaploLista = jegyzetek.eddigiJegyzetek();
+
     }
 
 }
